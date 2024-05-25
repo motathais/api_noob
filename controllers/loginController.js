@@ -2,7 +2,7 @@ const Usuarios = require("../models/Usuario");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const usuarioController={
+const loginController={
 
     // enviando as informações do formulário e validando-as
     post: async(req, res) =>{
@@ -34,4 +34,4 @@ const usuarioController={
     }
 };
 
-module.exports = usuarioController;
+module.exports = loginController;
