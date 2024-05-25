@@ -1,39 +1,36 @@
-const  Usuarios = require("../models/Usuario");
+const Usuarios = require("../models/Usuario");
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const usuarioController={
 
     // enviando as informações do formulário e validando-as
-
     post: async(req, res) =>{
 
-        const apelido = req.body.apelido;
-        const senha = req.body.senha;
+        const { apelido, senha } = req.body;
     
-            // conferindo se o email e a senha estão preenchidos
-            if (!apelido || !senha) {
-                return res.status(422).json({msg: 'Por favor, insira o apelido e a senha!'});
-            }
-    
-            // conferindo se o usuário existe
-     
-            const apelidoExiste = await Usuarios.findOne({apelido: apelido});
-    
-            if(!apelidoExiste){
-               return res.status(404).json({msg: 'O apelido inserido não existe, por favor insira outro!'});
-            }
+        // conferindo se o apelido e a senha estão preenchidos
+        if (!apelido || !senha) {
+            return res.status(422).json({ msg: 'Por favor, preencha as informações para login!' });
+        }
 
-             // conferindo se a senha bate
-    
-             const confereSenha = await bcrypt.compare(senha, apelidoExiste.senha);
-    
-             if(!confereSenha){
-                return res.status(422).json({msg:'Senha inválida'});
-             }
-            
-            const usuario = await Usuarios.findOne({apelido: apelido}).select('-senha');
+        const usuario = await Usuarios.findOne({ apelido });
+        
+        // conferindo se o usuário existe no banco
+        if (!usuario) {
+            return res.status(404).json({ msg: 'Nome de usuário ou senha invalido, verifique!' });
+        }
 
-            res.status(200).json({usuario, msg:"Usuário logado com sucesso!"});      
+        const confereSenha = await bcrypt.compare(senha, usuario.senha);
+
+        if (!confereSenha) {
+            return res.status(422).json({ msg: 'Senha inválida' });
+        }
+        
+        // Gerar um token JWT
+        const token = jwt.sign({ id: usuario._id }, 'secret', { expiresIn: '1h' });
+
+        res.status(200).json({ token, usuario: { apelido: usuario.apelido, nome: usuario.nome }, msg: "Usuário logado com sucesso!" });      
     }
 };
 
