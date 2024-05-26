@@ -53,7 +53,7 @@ const usuarioController={
             /*res.json({
                 usuarios, msg: "Usuário cadastrado com sucesso!"
             })*/
-            res.status(201).json({usuarios, message: "Usuário criado com sucesso!"});
+            res.status(200).json({usuarios, message: "Usuário criado com sucesso!"});
     
         } catch (error) {
             console.log(error)
