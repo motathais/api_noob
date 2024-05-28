@@ -30,7 +30,7 @@ const loginController={
         // Gerar um token JWT
         const token = jwt.sign({ id: usuario._id }, 'secret', { expiresIn: '1h' });
 
-        res.status(200).json({ token, usuario: { apelido: usuario.apelido, nome: usuario.nome }, msg: "Usuário logado com sucesso!" });      
+        res.status(200).json({ token, usuario: { id: usuario.id, apelido: usuario.apelido, nome: usuario.nome }, msg: "Usuário logado com sucesso!" });      
     }
 };
 
