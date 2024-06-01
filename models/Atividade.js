@@ -1,12 +1,8 @@
 const mongoose = require("mongoose");
-const { usuarioSchema } = require("./Usuario");
-const { jogoSchema } = require("./Jogo");
 
 const { Schema } = mongoose;
 
 const atividadeSchema = new Schema({
-
-   const atividadeSchema = new Schema({
     usuarios: [{
         nome: {
             type: String,
