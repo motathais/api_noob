@@ -6,21 +6,26 @@ const { Schema } = mongoose;
 
 const atividadeSchema = new Schema({
 
-    usuarios: {
-        type: [usuarioSchema],
-    },
-    jogo: {
-        type: [jogoSchema],
-    },
-    vencedor: {
-        type: [usuarioSchema],
-    },
+   const atividadeSchema = new Schema({
+    usuarios: [{
+        nome: {
+            type: String,
+        }
+    }],
+    jogo: [{
+        titulo: {
+            type: String,
+        }
+    }],
+    vencedor: [{
+        nome: {
+            type: String
+        }
+    }],
     duracao: {
-        type : String,
+        type: String
     }
-},
-{timestamps: true} //salva a data de criação e de modificação desse registro
-);
+}, { timestamps: true });
 
 const Atividade = mongoose.model("Atividade", atividadeSchema)
 
