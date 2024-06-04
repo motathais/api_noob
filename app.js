@@ -1,25 +1,41 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const bodyParser = require('body-parser');
+const multer = require('multer');
 
 
 app.use(cors());
 
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
+
+app.use(express.urlencoded({extended: true , limit: '50mb'}));
+
+app.use(bodyParser.json());
+
+//
+// Set up multer for file uploads
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 
 // configuração da visualização de imagens
 
-const path = require("path");
+/*const path = require("path");
 
 const uploads = path.join(__dirname,"/uploads");
 
-app.use("/uploads",express.static(uploads));
+app.use("/uploads",express.static(uploads));*/
 
 // importando dados do .env
 
-require("dotenv").config();
+require("dotenv").config({ path: './env/.env' });
 
 const port = process.env.PORT;
+
+//configurando cloudinary
+
+const cloudinary= require("./cloudinary/cloudinary");
 
 // DB Connection
 const conn = require("./db/conn");
