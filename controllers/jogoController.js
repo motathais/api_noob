@@ -5,7 +5,7 @@ const jogoController = {
     create: async(req, res) =>{
         try {
             const jogo = {
-            nome: req.body.nome,
+            titulo: req.body.titulo,
             ano: req.body.ano,
             idade: req.body.idade,
             designer: req.body.designer,
@@ -75,7 +75,7 @@ const jogoController = {
         const id = req.params.id
 
         const jogo = {
-            nome: req.body.nome,
+            titulo: req.body.titulo,
             ano: req.body.ano,
             idade: req.body.idade,
             designer: req.body.designer,
