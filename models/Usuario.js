@@ -28,7 +28,7 @@ const UsuarioSchema = new Schema({
         //required: true
     }
 },
-{timestamps: true}
+//{timestamps: true}
 );
 
 module.exports = mongoose.model("Usuario", UsuarioSchema);
