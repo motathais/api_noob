@@ -14,6 +14,9 @@ const avaliacaoSchema = new Schema({
     },
     nota: {
         type: Number,
+    },
+    comentario: {
+        type: String,
     }
 },
 {timestamps: true} //salva a data de criação e de modificação desse registro

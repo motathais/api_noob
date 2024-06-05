@@ -7,7 +7,8 @@ const avaliacaoController = {
             const avaliacao = {
                 usuario: req.body.usuario,
                 jogo: req.body.jogo,
-                nota: req.body.nota
+                nota: req.body.nota,
+                comentario: req.body.comentario
             };
             const response = await AvaliacaoModel.create(avaliacao);
 
@@ -70,7 +71,8 @@ const avaliacaoController = {
         const avaliacao = {
             usuario: req.body.usuario,
             jogo: req.body.jogo,
-            nota: req.body.nota
+            nota: req.body.nota,
+            comentario: req.body.comentario
         };
 
         const updatedAvaliacao = await AvaliacaoModel.findByIdAndUpdate(id, avaliacao)
