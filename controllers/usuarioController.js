@@ -124,8 +124,8 @@ const usuarioController={
              let file = req.file;
  
              // configurando hash de senha
-             const salt = await bcrypt.genSalt(12);
-             const hash = await bcrypt.hash(senha,salt);
+             //const salt = await bcrypt.genSalt(12);
+             //const hash = await bcrypt.hash(senha,salt);
     
             const usuario = {
                 nome,
