@@ -119,7 +119,7 @@ const usuarioController={
              const {apelido} = req.body;
              const {nascimento} = req.body;
              const {email} = req.body;
-             const {senha} = req.body;
+             //const {senha} = req.body;
              //const file = req.file;
              let file = req.file;
  
@@ -132,7 +132,7 @@ const usuarioController={
                 apelido,
                 nascimento,
                 email,
-                senha:hash,
+                //senha:hash,
                 //src: file.path
                 src: file ? file.path : null
             };
@@ -147,7 +147,6 @@ const usuarioController={
             res.status(200).json({usuario, msg: "Usuário atualizado com sucesso."}); 
     
             }
-    
 };
 
 
