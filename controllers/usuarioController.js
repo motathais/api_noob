@@ -136,6 +136,21 @@ const usuarioController={
                 //src: file.path
                 src: file ? file.path : null
             };
+
+            // validando se usuário e apelido existem
+            const usuarioExiste = await Usuarios.findOne({email: email});
+    
+            const apelidoExiste = await Usuarios.findOne({apelido: apelido});
+    
+             if(usuarioExiste){
+                res.status(401).json({message: "O email inserido está em uso, por gentileza utilize outro"});
+                return;
+             }
+    
+             if(apelidoExiste){
+                res.status(401).json({message: "O apelido inserido já está em uso, por gentileza utilize outro"});
+                return;
+             }
     
             const updatedUsuario = await Usuarios.findByIdAndUpdate(id, usuario)
     
