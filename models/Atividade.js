@@ -13,9 +13,11 @@ const atividadeSchema = new Schema({
             type: String,
         }
     }],
-    vencedor: {
-         type: String,
-    },
+   vencedor: [{
+        nome: {
+            type: String
+        }
+    }],
     duracao: {
         type: String
     }
