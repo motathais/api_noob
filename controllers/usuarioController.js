@@ -144,7 +144,7 @@ const usuarioController={
                 return;
             }
     
-            res.status(200).json({usuario, msg: "Usuário atualizado com sucesso."}); 
+            res.status(200).json({usuario:{ id: usuario._id, nome: usuario.nome, apelido: usuario.apelido, nascimento: usuario.nascimento, email: usuario.email}, msg: "Usuário atualizado com sucesso."}); 
     
             }
 };
