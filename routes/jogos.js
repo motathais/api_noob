@@ -2,9 +2,13 @@ const router = require("express").Router()
 
 const jogoController = require("../controllers/jogoController");
 
+const upload = require("../multer/multer");
+
 // Funções
 
-router.route("/jogos").post((req, res) => jogoController.create(req, res));
+//router.route("/jogos").post((req, res) => jogoController.create(req, res));
+
+router.post("/jogos", upload.single("file"), jogoController.create);
 
 router.route("/jogos").get((req, res) => jogoController.getAll(req,res));
 
