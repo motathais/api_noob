@@ -19,46 +19,32 @@ const usuarioController={
             let file = req.file;
 
             // configurando hash de senha
-            const salt = await bcrypt.genSalt(12);
-            const hash = await bcrypt.hash(senha,salt);
-            
-            // criando o usuario
-            const usuarios = new Usuarios({
-                nome,
-                apelido,
-                nascimento,
-                email,
-                senha:hash,
-                //src: file.path
-                src: file ? file.path : null
-            });
-    
-            // validando se usuário e apelido existem
-            const usuarioExiste = await Usuarios.findOne({email: email});
-    
-            const apelidoExiste = await Usuarios.findOne({apelido: apelido});
-    
-             if(usuarioExiste){
-                res.status(401).json({message: "O email inserido está em uso, por gentileza utilize outro"});
-                return;
-             }
-    
-             if(apelidoExiste){
-                res.status(401).json({message: "O apelido inserido já está em uso, por gentileza utilize outro"});
-                return;
-             }
+      const salt = await bcrypt.genSalt(12);
+      const hash = await bcrypt.hash(senha, salt);
 
-              // Upload da imagem para o Cloudinary
-              let src;
-              if (file) {
-                const result = await new Promise((resolve, reject) => {
-                  cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
-                    if (error) reject(error);
-                    else resolve(result);
-                  }).end(file.buffer);
-                });
-                src = result.secure_url;
-              }
+      // validando se usuário e apelido existem
+      const usuarioExiste = await Usuarios.findOne({ email: email });
+      const apelidoExiste = await Usuarios.findOne({ apelido: apelido });
+
+      if (usuarioExiste) {
+        return res.status(401).json({ message: "O email inserido está em uso, por gentileza utilize outro" });
+      }
+
+      if (apelidoExiste) {
+        return res.status(401).json({ message: "O apelido inserido já está em uso, por gentileza utilize outro" });
+      }
+
+      // Upload da imagem para o Cloudinary
+      let src;
+      if (file) {
+        const result = await new Promise((resolve, reject) => {
+          cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }).end(file.buffer);
+        });
+        src = result.secure_url;
+      }
 
       // criando o usuario
       const usuarios = new Usuarios({
@@ -70,19 +56,16 @@ const usuarioController={
         src: src || null
       });
 
-             // salvando o usuário
-            await usuarios.save();
-    
-            /*res.json({
-                usuarios, msg: "Usuário cadastrado com sucesso!"
-            })*/
-            res.status(200).json({usuarios, message: "Usuário criado com sucesso!"});
-    
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({ message: "Erro ao processar a requisição." });
-        }
-    },
+      // salvando o usuário
+      await usuarios.save();
+
+      res.status(200).json({ usuarios, message: "Usuário criado com sucesso!" });
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Erro ao processar a requisição." });
+    }
+  },
     // função para buscar todos os usuários da lista via GET
         getAll: async (req, res) => {
             try{
