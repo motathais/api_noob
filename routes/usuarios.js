@@ -2,7 +2,7 @@ const router = require("express").Router()
 
 const usuarioController = require("../controllers/usuarioController");
 
-const upload = require("../config/multer");
+const upload = require("../multer/multer");
 
 // Funções
 
