@@ -1,4 +1,5 @@
 const  Usuarios = require("../models/Usuario");
+const cloudinary = require('../cloudinary/cloudinary');
 
 const bcrypt = require('bcrypt');
 //const jwt = require('jsonwebtoken')
@@ -46,7 +47,29 @@ const usuarioController={
                 res.status(401).json({message: "O apelido inserido já está em uso, por gentileza utilize outro"});
                 return;
              }
-    
+
+              // Upload da imagem para o Cloudinary
+              let src;
+              if (file) {
+                const result = await new Promise((resolve, reject) => {
+                  cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
+                    if (error) reject(error);
+                    else resolve(result);
+                  }).end(file.buffer);
+                });
+                src = result.secure_url;
+              }
+
+      // criando o usuario
+      const usuarios = new Usuarios({
+        nome,
+        apelido,
+        nascimento,
+        email,
+        senha: hash,
+        src: src || null
+      });
+
              // salvando o usuário
             await usuarios.save();
     
