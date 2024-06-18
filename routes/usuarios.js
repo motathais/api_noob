@@ -18,7 +18,10 @@ router.route("/usuarios/:id").get((req,res) =>usuarioController.get(req, res));
 
 router.route("/usuarios/:id").delete((req,res) =>usuarioController.delete(req, res));
 
-router.route("/usuarios/:id").put((req,res) =>usuarioController.update(req, res));
+//router.route("/usuarios/:id").put((req,res) =>usuarioController.update(req, res));
+
+router.put("/usuarios/:id", upload.single("file"), usuarioController.update);
+
 
 module.exports = router;
 
