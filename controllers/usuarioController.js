@@ -132,6 +132,18 @@ const usuarioController={
              // configurando hash de senha
              //const salt = await bcrypt.genSalt(12);
              //const hash = await bcrypt.hash(senha,salt);
+
+             // Upload da imagem para o Cloudinary
+              let src;
+              if (file) {
+                const result = await new Promise((resolve, reject) => {
+                  cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
+                    if (error) reject(error);
+                    else resolve(result);
+                  }).end(file.buffer);
+                });
+                src = result.secure_url;
+              }
     
             const usuario = {
                 nome,
@@ -140,7 +152,7 @@ const usuarioController={
                 email,
                 //senha:hash,
                 //src: file.path
-                src: file ? file.path : null
+                src: src || null
             };
     
             const updatedUsuario = await Usuarios.findByIdAndUpdate(id, usuario)
@@ -150,7 +162,7 @@ const usuarioController={
                 return;
             }
     
-             res.status(200).json({ usuario: { nome: usuario.nome, apelido: usuario.apelido, nascimento: usuario.nascimento, email: usuario.email}, msg: "Usuário atualizado com sucesso!" });     
+             res.status(200).json({ usuario: { nome: usuario.nome, apelido: usuario.apelido, nascimento: usuario.nascimento, email: usuario.email, src: usuario.src}, msg: "Usuário atualizado com sucesso!" });     
     
             }
 };
