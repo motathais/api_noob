@@ -1,24 +1,57 @@
 const {Jogo : JogoModel, Jogo } = require("../models/Jogo");
+const cloudinary = require('../cloudinary/cloudinary');
 
 const jogoController = {
 
     create: async(req, res) =>{
         try {
-            const jogo = {
-            titulo: req.body.titulo,
-            ano: req.body.ano,
-            idade: req.body.idade,
-            designer: req.body.designer,
-            artista: req.body.artista,
-            editora: req.body.editora,
-            digital: req.body.digital,
-            categoria: req.body.categoria,
-            componentes: req.body.componentes,
-            descricao: req.body.descricao
-            };
-            const response = await JogoModel.create(jogo);
+            
+            // recebendo os parametros do body
+            const {titulo} = req.body;
+            const {ano} = req.body;
+            const {idade} = req.body;
+            const {designer} = req.body;
+            const {artista} = req.body;
+            const {editora} = req.body;
+            const {digital} = req.body;
+            const {categoria} = req.body;
+            const {componentes} = req.body;
+            const {descricao} = req.body;
+            //const file = req.file;
+            let file = req.file;
 
-            res.status(201).json({response, msg: "Jogo criado com sucesso!"});
+
+             // Upload da imagem para o Cloudinary
+              let capa;
+              if (file) {
+                const result = await new Promise((resolve, reject) => {
+                  cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
+                    if (error) reject(error);
+                    else resolve(result);
+                  }).end(file.buffer);
+                });
+                capa = result.secure_url;
+              }
+
+            // criando o usuario
+          const jogos = new Usuarios({
+            titulo,
+            ano,
+            idade,
+            designer,
+            artista,
+            editora,
+            digital,
+            categoria,
+            componentes,
+            descricao,  
+            capa: capa || null
+          });
+
+          // salvando o jogo
+          await jogos.save();
+
+         res.status(201).json({jogos, msg: "Jogo criado com sucesso!"});
 
         } catch(error){
             console.log(error);
