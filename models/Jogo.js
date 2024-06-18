@@ -34,6 +34,10 @@ const jogoSchema = new Schema({
     },
     descricao: {
         type: String,
+    },
+    capa:{
+        type: String,
+        //required: true
     }
 },
 {timestamps: true} //salva a data de criação e de modificação desse registro
