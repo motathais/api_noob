@@ -34,7 +34,7 @@ const jogoController = {
               }
 
             // criando o usuario
-          const jogos = new Usuarios({
+          const jogos = new Jogo({
             titulo,
             ano,
             idade,
