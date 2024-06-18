@@ -44,6 +44,8 @@ const usuarioController={
           }).end(file.buffer);
         });
         src = result.secure_url;
+      } else {
+        return res.status(400).json({ message: 'Arquivo vazio' });
       }
 
       // criando o usuario
