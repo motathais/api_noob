@@ -23,7 +23,7 @@ const UsuarioSchema = new Schema({
         type: String,
         required: true
     },
-    src:{
+    foto:{
         type: String,
         //required: true
     }

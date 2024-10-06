@@ -16,7 +16,7 @@ const usuarioController={
             const {email} = req.body;
             const {senha} = req.body;
             //const file = req.file;
-            let file = req.file;
+            let foto = req.file;
 
             // configurando hash de senha
       const salt = await bcrypt.genSalt(12);
@@ -36,12 +36,12 @@ const usuarioController={
 
       // Upload da imagem para o Cloudinary
       let src;
-      if (file) {
+      if (foto) {
         const result = await new Promise((resolve, reject) => {
           cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
             if (error) reject(error);
             else resolve(result);
-          }).end(file.buffer);
+          }).end(foto.buffer);
         });
         src = result.secure_url;
       }
@@ -53,7 +53,7 @@ const usuarioController={
         nascimento,
         email,
         senha: hash,
-        src: src || null
+        foto: src || null
       });
 
       // salvando o usuário
@@ -127,7 +127,7 @@ const usuarioController={
              const {email} = req.body;
              //const {senha} = req.body;
              //const file = req.file;
-             let file = req.file;
+             let foto = req.file;
  
              // configurando hash de senha
              //const salt = await bcrypt.genSalt(12);
@@ -135,12 +135,12 @@ const usuarioController={
 
              // Upload da imagem para o Cloudinary
               let src;
-              if (file) {
+              if (foto) {
                 const result = await new Promise((resolve, reject) => {
                   cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
                     if (error) reject(error);
                     else resolve(result);
-                  }).end(file.buffer);
+                  }).end(foto.buffer);
                 });
                 src = result.secure_url;
               }
@@ -152,7 +152,7 @@ const usuarioController={
                 email,
                 //senha:hash,
                 //src: file.path
-                src: src || null
+                foto: src || null
             };
     
             const updatedUsuario = await Usuarios.findByIdAndUpdate(id, usuario)
@@ -162,7 +162,7 @@ const usuarioController={
                 return;
             }
     
-             res.status(200).json({ usuario: { nome: usuario.nome, apelido: usuario.apelido, nascimento: usuario.nascimento, email: usuario.email, src: usuario.src}, msg: "Usuário atualizado com sucesso!" });     
+             res.status(200).json({ usuario: { nome: usuario.nome, apelido: usuario.apelido, nascimento: usuario.nascimento, email: usuario.email, foto: usuario.foto}, msg: "Usuário atualizado com sucesso!" });     
     
             }
 };
