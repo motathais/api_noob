@@ -105,31 +105,56 @@ const jogoController = {
         }
     },
     update : async(req,res) =>{
-        const id = req.params.id
 
-        const jogo = {
-            titulo: req.body.titulo,
-            ano: req.body.ano,
-            idade: req.body.idade,
-            designer: req.body.designer,
-            artista: req.body.artista,
-            editora: req.body.editora,
-            digital: req.body.digital,
-            categoria: req.body.categoria,
-            componentes: req.body.componentes,
-            descricao: req.body.descricao
-        };
-
-        const updatedJogo = await JogoModel.findByIdAndUpdate(id, jogo)
-
-        if(!updatedJogo) {
-            res.status(404).json({msg: "Jogo não encontrado!"});
-            return;
-        }
-
-        res.status(200).json({jogo, msg: "Jogo atualizado com sucesso!"}); 
-
+            const id = req.params.id;
+        
+            // Criação do objeto com os dados do jogo
+            const jogo = {
+                titulo: req.body.titulo,
+                ano: req.body.ano,
+                idade: req.body.idade,
+                designer: req.body.designer,
+                artista: req.body.artista,
+                editora: req.body.editora,
+                digital: req.body.digital,
+                categoria: req.body.categoria,
+                componentes: req.body.componentes,
+                descricao: req.body.descricao,
+            };
+        
+            // Verificar se existe um arquivo de imagem
+            const file = req.file;
+            if (file) {
+                try {
+                    // Upload da imagem para o Cloudinary
+                    const result = await new Promise((resolve, reject) => {
+                        cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
+                            if (error) reject(error);
+                            else resolve(result);
+                        }).end(file.buffer);
+                    });
+                    // Atribuir a URL da imagem ao campo "capa" do objeto jogo
+                    jogo.capa = result.secure_url;
+                } catch (error) {
+                    return res.status(500).json({ msg: "Erro ao fazer upload da imagem", error });
+                }
+            }
+        
+            try {
+                // Atualizar o documento no banco de dados
+                const updatedJogo = await JogoModel.findByIdAndUpdate(id, jogo, { new: true });
+        
+                if (!updatedJogo) {
+                    return res.status(404).json({ msg: "Jogo não encontrado!" });
+                }
+        
+                return res.status(200).json({ jogo: updatedJogo, msg: "Jogo atualizado com sucesso!" });
+            } catch (error) {
+                return res.status(500).json({ msg: "Erro ao atualizar o jogo", error });
+            }
         },
+        
+
 
     };
 
