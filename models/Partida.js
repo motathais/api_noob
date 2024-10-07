@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const atividadeSchema = new Schema({
+const partidaSchema = new Schema({
     usuarios: [{
         nome: {
             type: String,
@@ -23,9 +23,9 @@ const atividadeSchema = new Schema({
     }
 }, { timestamps: true });
 
-const Atividade = mongoose.model("Atividade", atividadeSchema)
+const Partida = mongoose.model("Partida", partidaSchema)
 
 module.exports = {
-    Atividade,
-    atividadeSchema
+    Partida,
+    partidaSchema
 }

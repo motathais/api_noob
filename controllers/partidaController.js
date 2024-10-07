@@ -1,16 +1,16 @@
-const {Atividade : AtividadeModel, Atividade } = require("../models/Atividade");
+const {Partida : PartidaModel, Partida } = require("../models/Partida");
 
-const atividadeController = {
+const partidaController = {
 
     create: async(req, res) =>{
         try {
-            const atividade = {
+            const partida = {
                 usuarios: req.body.usuarios,
                 jogo: req.body.jogo,
                 vencedor: req.body.vencedor,
                 duracao: req.body.duracao
             };
-            const response = await AtividadeModel.create(atividade);
+            const response = await PartidaModel.create(partida);
 
             res.status(201).json({response, msg: "Partida registrada com sucesso!"});
 
@@ -20,9 +20,9 @@ const atividadeController = {
     },
     getAll: async (req, res) => {
         try{
-            const atividades = await AtividadeModel.find()
+            const partidas = await PartidaModel.find()
 
-            res.json(atividades);
+            res.json(partidas);
         }catch(error){
             console.log(error)
         }
@@ -31,14 +31,14 @@ const atividadeController = {
         try {
             //id => URL == GET
             const id = req.params.id
-            const atividade = await AtividadeModel.findById(id);
+            const partida = await PartidaModel.findById(id);
 
-            if(!atividade){
+            if(!partida){
                 res.status(404).json({msg: "Partida não encontrada!"});
                 return;
             }
 
-            res.json(atividade);
+            res.json(partida);
 
         }catch(error) {
             console.log(error)
@@ -48,18 +48,18 @@ const atividadeController = {
         try{
             const id = req.params.id;
 
-            const atividade = await AtividadeModel.findById(id);
+            const partida = await PartidaModel.findById(id);
 
-            if (!atividade){
+            if (!partida){
                 res.status(404).json({ msg: "Partida não encontrada!"});
                 return;
             }
 
-        const deletedAtividade = await AtividadeModel.findByIdAndDelete(id);
+        const deletedPartida = await PartidaModel.findByIdAndDelete(id);
 
         res
             .status(200)
-            .json({ deletedAtividade, msg: "Partida excluida com sucesso!"});
+            .json({ deletedPartida, msg: "Partida excluida com sucesso!"});
 
         }catch (error){
             console.log(error)
@@ -68,25 +68,25 @@ const atividadeController = {
     update : async(req,res) =>{
         const id = req.params.id
 
-        const atividade = {
+        const partida = {
             usuarios: req.body.usuarios,
             jogo: req.body.jogo,
             vencedor: req.body.vencedor,
             duracao: req.body.duracao
         };
 
-        const updatedAtividade = await AtividadeModel.findByIdAndUpdate(id, atividade)
+        const updatedPartida = await PartidaModel.findByIdAndUpdate(id, partida)
 
-        if(!updatedAtividade) {
+        if(!updatedPartida) {
             res.status(404).json({msg: "Partida não encontrada!"});
             return;
         }
 
-        res.status(200).json({atividade, msg: "Partida atualizada com sucesso!"}); 
+        res.status(200).json({partida, msg: "Partida atualizada com sucesso!"}); 
 
         },
 
     };
 
 
-module.exports = atividadeController;
+module.exports = partidaController;

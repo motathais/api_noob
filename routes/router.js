@@ -15,9 +15,9 @@ router.use("/", jogosRouter);
 
 // Atividades routes
 
-const atividadesRouter = require("./atividades");
+const partidasRouter = require("./partidas");
 
-router.use("/", atividadesRouter);
+router.use("/", partidasRouter);
 
 // Avaliacoes Router
 
