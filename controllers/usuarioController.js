@@ -2,7 +2,7 @@ const  Usuarios = require("../models/Usuario");
 const cloudinary = require('../cloudinary/cloudinary');
 
 const bcrypt = require('bcrypt');
-//const jwt = require('jsonwebtoken')
+
 
 const usuarioController={
     // função para criar usuário via POST

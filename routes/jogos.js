@@ -14,8 +14,6 @@ router.route("/jogos/:id").get((req, res) => jogoController.get(req,res));
 
 router.route("/jogos/:id").delete((req, res) => jogoController.delete(req, res));
 
-//router.route("/jogos/:id").put((req, res) => jogoController.update(req, res));
-
 router.put("/jogos/:id", upload.single("file"), jogoController.update);
 
 

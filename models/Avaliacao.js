@@ -19,7 +19,7 @@ const avaliacaoSchema = new Schema({
         type: String,
     }
 },
-{timestamps: true} //salva a data de criação e de modificação desse registro
+{timestamps: true} 
 );
 
 const Avaliacao = mongoose.model("Avaliacao", avaliacaoSchema)

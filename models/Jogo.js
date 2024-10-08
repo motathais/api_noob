@@ -40,7 +40,7 @@ const jogoSchema = new Schema({
         //required: true
     }
 },
-{timestamps: true} //salva a data de criação e de modificação desse registro
+{timestamps: true} 
 );
 
 const Jogo = mongoose.model("Jogo", jogoSchema)

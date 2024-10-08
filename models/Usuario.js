@@ -25,7 +25,7 @@ const UsuarioSchema = new Schema({
     },
     foto:{
         type: String,
-        //required: true
+      
     }
 },
 {timestamps: true}

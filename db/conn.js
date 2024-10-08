@@ -14,7 +14,6 @@ async function main(){
         console.log(`Erro: ${error}`);
     }
 
-    //rHc142M1AWZ0VK1U
 }
 
 module.exports = main;

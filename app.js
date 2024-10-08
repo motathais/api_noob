@@ -19,14 +19,6 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 
-// configuração da visualização de imagens
-
-/*const path = require("path");
-
-const uploads = path.join(__dirname,"/uploads");
-
-app.use("/uploads",express.static(uploads));*/
-
 // importando dados do .env
 
 require("dotenv").config({ path: './env/.env' });
