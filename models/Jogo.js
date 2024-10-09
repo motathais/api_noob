@@ -35,10 +35,13 @@ const jogoSchema = new Schema({
     descricao: {
         type: String,
     },
+    idOriginal:{
+        type: String,
+    },
     capa:{
         type: String,
         //required: true
-    }
+    },
 },
 {timestamps: true} 
 );

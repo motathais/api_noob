@@ -17,6 +17,7 @@ const jogoController = {
             const {categoria} = req.body;
             const {componentes} = req.body;
             const {descricao} = req.body;
+            const {idOriginal} = req.body;
             //const file = req.file;
             let file = req.file;
 
@@ -44,7 +45,8 @@ const jogoController = {
             digital,
             categoria,
             componentes,
-            descricao,  
+            descricao, 
+            idOriginal, 
             capa: capa || null
           });
 
@@ -153,9 +155,6 @@ const jogoController = {
                 return res.status(500).json({ msg: "Erro ao atualizar o jogo", error });
             }
         },
-        
-
-
     };
 
 
