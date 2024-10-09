@@ -81,7 +81,7 @@ const usuarioController={
             try {
                 //id => URL == GET
                 const id = req.params.id
-                const usuario = await Usuarios.findById(id);
+                const usuario = await Usuarios.findById(id, '-senha');
     
                 if(!usuario){
                     res.status(404).json({msg: "Usuario não encontrado"});

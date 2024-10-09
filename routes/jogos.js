@@ -4,17 +4,19 @@ const jogoController = require("../controllers/jogoController");
 
 const upload = require("../multer/multer");
 
-// Funções
+const {checkToken} = require("../checkToken/checkToken");
 
-router.post("/jogos", upload.single("file"), jogoController.create);
+// Funções
 
 router.route("/jogos").get((req, res) => jogoController.getAll(req,res));
 
 router.route("/jogos/:id").get((req, res) => jogoController.get(req,res));
 
-router.route("/jogos/:id").delete((req, res) => jogoController.delete(req, res));
+router.post("/jogos", checkToken, upload.single("file"), jogoController.create);
 
-router.put("/jogos/:id", upload.single("file"), jogoController.update);
+router.route("/jogos/:id").delete(checkToken, (req, res) => jogoController.delete(req, res)); 
+
+router.put("/jogos/:id", checkToken, upload.single("file"), jogoController.update); 
 
 
 module.exports = router;
