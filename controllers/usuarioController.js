@@ -15,6 +15,7 @@ const usuarioController={
             const {nascimento} = req.body;
             const {email} = req.body;
             const {senha} = req.body;
+            const {ativo} = req.body;
             //const file = req.file;
             let foto = req.file;
 
@@ -53,6 +54,7 @@ const usuarioController={
         nascimento,
         email,
         senha: hash,
+        ativo: true,
         foto: src || null
       });
 

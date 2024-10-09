@@ -23,9 +23,11 @@ const UsuarioSchema = new Schema({
         type: String,
         required: true
     },
+    ativo:{
+        type: Boolean,
+    },
     foto:{
         type: String,
-      
     }
 },
 {timestamps: true}
