@@ -15,7 +15,7 @@ const usuarioController={
             const {nascimento} = req.body;
             const {email} = req.body;
             const {senha} = req.body;
-            const {ativo} = req.body;
+            const {number} = req.body;
             //const file = req.file;
             let foto = req.file;
 
@@ -54,7 +54,7 @@ const usuarioController={
         nascimento,
         email,
         senha: hash,
-        ativo: true,
+        nivel: 1,
         foto: src || null
       });
 
@@ -164,7 +164,7 @@ const usuarioController={
                 return;
             }
     
-             res.status(200).json({ usuario: { nome: usuario.nome, apelido: usuario.apelido, nascimento: usuario.nascimento, email: usuario.email, foto: usuario.foto}, msg: "Usuário atualizado com sucesso!" });     
+             res.status(200).json({ /*usuario: { nome: usuario.nome, apelido: usuario.apelido, nascimento: usuario.nascimento, email: usuario.email, foto: usuario.foto}, */msg: "Usuário atualizado com sucesso!" });     
     
             }
 };
