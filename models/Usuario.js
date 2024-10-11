@@ -23,8 +23,8 @@ const UsuarioSchema = new Schema({
         type: String,
         required: true
     },
-    ativo:{
-        type: Boolean,
+    nivel:{
+        type: Number,
     },
     foto:{
         type: String,

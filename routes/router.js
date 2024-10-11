@@ -20,7 +20,6 @@ const partidasRouter = require("./partidas");
 router.use("/", partidasRouter);
 
 
-
 // Denuncia Router
 
 const denunciasRouter = require("./denuncias");

@@ -5,7 +5,7 @@ const denunciaController = {
     create: async(req, res) =>{
         try {
             const denuncia = {
-                registro: req.body.registro,
+                idRegistro: req.body.idRegistro,
                 descricao: req.body.descricao,
             };
             const response = await DenunciaModel.create(denuncia);
@@ -67,7 +67,7 @@ const denunciaController = {
         const id = req.params.id
 
         const denuncia = {
-            registro: req.body.registro,
+            idRegistro: req.body.idRegistro,
             descricao: req.body.descricao,
         };
 

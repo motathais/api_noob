@@ -18,7 +18,6 @@ const jogoController = {
             const {componentes} = req.body;
             const {descricao} = req.body;
             const {idOriginal} = req.body;
-            //const file = req.file;
             let file = req.file;
 
 

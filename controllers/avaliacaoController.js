@@ -2,19 +2,26 @@ const {Avaliacao : AvaliacaoModel, Avaliacao } = require("../models/Avaliacao");
 
 const avaliacaoController = {
 
-    create: async(req, res) =>{
+    create: async(req, res) => {
         try {
+            const { usuario, jogo, beleza, divertimento, duracao, preco, armazenamento } = req.body;
+    
             const avaliacao = {
-                usuario: req.body.usuario,
-                jogo: req.body.jogo,
-                nota: req.body.nota,
-                comentario: req.body.comentario
+                usuario,
+                jogo,
+                beleza,
+                divertimento,
+                duracao,
+                preco,
+                armazenamento,
+                nota: (beleza + divertimento + duracao + preco + armazenamento) / 5
             };
+    
             const response = await AvaliacaoModel.create(avaliacao);
-
-            res.status(201).json({response, msg: "Avaliação registrada com sucesso!"});
-
-        } catch(error){
+    
+            res.status(201).json({ response, msg: "Avaliação registrada com sucesso!" });
+    
+        } catch (error) {
             console.log(error);
         }
     },
@@ -66,27 +73,35 @@ const avaliacaoController = {
         }
     },
     update : async(req,res) =>{
-        const id = req.params.id
-
-        const avaliacao = {
-            usuario: req.body.usuario,
-            jogo: req.body.jogo,
-            nota: req.body.nota,
-            comentario: req.body.comentario
-        };
-
-        const updatedAvaliacao = await AvaliacaoModel.findByIdAndUpdate(id, avaliacao)
-
-        if(!updatedAvaliacao) {
-            res.status(404).json({msg: "Avaliação não encontrada!"});
-            return;
+        try {
+            const id = req.params.id;
+    
+            const { usuario, jogo, beleza, divertimento, duracao, preco, armazenamento } = req.body;
+    
+            const avaliacao = {
+                usuario,
+                jogo,
+                beleza,
+                divertimento,
+                duracao,
+                preco,
+                armazenamento,
+                nota: (beleza + divertimento + duracao + preco + armazenamento) / 5
+            };
+    
+            const updatedAvaliacao = await AvaliacaoModel.findByIdAndUpdate(id, avaliacao, { new: true });
+    
+            if (!updatedAvaliacao) {
+                res.status(404).json({ msg: "Avaliação não encontrada!" });
+                return;
+            }
+    
+            res.status(200).json({ updatedAvaliacao, msg: "Avaliação atualizada com sucesso!" });
+    
+        } catch (error) {
+            res.status(500).json({ msg: "Erro ao atualizar avaliação!" });
         }
-
-        res.status(200).json({avaliacao, msg: "Avaliação atualizada com sucesso!"}); 
-
-        },
-
-    };
-
+    },
+}
 
 module.exports = avaliacaoController;

@@ -1,23 +1,33 @@
 const mongoose = require("mongoose");
-const { usuarioSchema } = require("./Usuario");
-const { jogoSchema } = require("./Jogo");
 
 const { Schema } = mongoose;
 
 const avaliacaoSchema = new Schema({
 
     usuario: {
-        type: [usuarioSchema],
+        type: String,
     },
     jogo: {
-        type: [jogoSchema],
+        type: String,
+    },
+    beleza: {
+        type: Number,
+    },
+    divertimento: {
+        type: Number,
+    },
+    duracao: {
+        type: Number,
+    },
+    preco: {
+        type: Number,
+    },
+    armazenamento: {
+        type: Number,
     },
     nota: {
         type: Number,
     },
-    comentario: {
-        type: String,
-    }
 },
 {timestamps: true} 
 );

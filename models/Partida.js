@@ -4,17 +4,15 @@ const { Schema } = mongoose;
 
 const partidaSchema = new Schema({
     usuarios: [{
-        nome: {
+        apelido: {
             type: String,
         }
     }],
-    jogo: [{
-        titulo: {
-            type: String,
-        }
-    }],
+    jogo: {
+        type: String
+    },
     vencedor: [{
-        nome: {
+        apelido: {
             type: String
         }
     }],

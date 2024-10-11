@@ -15,8 +15,7 @@ const usuarioController={
             const {nascimento} = req.body;
             const {email} = req.body;
             const {senha} = req.body;
-            const {number} = req.body;
-            //const file = req.file;
+            const {nivel} = req.body;
             let foto = req.file;
 
             // configurando hash de senha
@@ -119,54 +118,67 @@ const usuarioController={
             }
         },
     // atualizando o usuário passando o ID via PUT
-        update : async(req,res) =>{
+        updateSenha : async(req,res) =>{
             const id = req.params.id
-
-             // recebendo os parametros do body
-             const {nome} = req.body;
-             const {apelido} = req.body;
-             const {nascimento} = req.body;
-             const {email} = req.body;
-             //const {senha} = req.body;
-             //const file = req.file;
-             let foto = req.file;
+            
+             const {senha} = req.body;
  
              // configurando hash de senha
-             //const salt = await bcrypt.genSalt(12);
-             //const hash = await bcrypt.hash(senha,salt);
-
-             // Upload da imagem para o Cloudinary
-              let src;
-              if (foto) {
-                const result = await new Promise((resolve, reject) => {
-                  cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
-                    if (error) reject(error);
-                    else resolve(result);
-                  }).end(foto.buffer);
-                });
-                src = result.secure_url;
-              }
+             const salt = await bcrypt.genSalt(12);
+             const hash = await bcrypt.hash(senha,salt);
     
             const usuario = {
-                nome,
-                apelido,
-                nascimento,
-                email,
-                //senha:hash,
-                //src: file.path
-                foto: src || null
+                senha:hash,
             };
     
-            const updatedUsuario = await Usuarios.findByIdAndUpdate(id, usuario)
+            const updatedSenha = await Usuarios.findByIdAndUpdate(id, usuario)
     
-            if(!updatedUsuario) {
+            if(!updatedSenha) {
                 res.status(404).json({msg: "Usuário não encontrado."});
                 return;
             }
     
-             res.status(200).json({ /*usuario: { nome: usuario.nome, apelido: usuario.apelido, nascimento: usuario.nascimento, email: usuario.email, foto: usuario.foto}, */msg: "Usuário atualizado com sucesso!" });     
+             res.status(200).json({ msg: "Senha atualizada com sucesso!" });     
     
-            }
+            },
+            update : async(req,res) =>{
+              const id = req.params.id
+  
+               // recebendo os parametros do body
+               const {nome} = req.body;
+               const {nascimento} = req.body;
+               const {email} = req.body;
+               let foto = req.file;
+  
+               // Upload da imagem para o Cloudinary
+                let src;
+                if (foto) {
+                  const result = await new Promise((resolve, reject) => {
+                    cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
+                      if (error) reject(error);
+                      else resolve(result);
+                    }).end(foto.buffer);
+                  });
+                  src = result.secure_url;
+                }
+      
+              const usuario = {
+                  nome,
+                  nascimento,
+                  email,
+                  foto: src || null
+              };
+      
+              const updatedUsuario = await Usuarios.findByIdAndUpdate(id, usuario)
+      
+              if(!updatedUsuario) {
+                  res.status(404).json({msg: "Usuário não encontrado."});
+                  return;
+              }
+      
+               res.status(200).json({ usuario, msg: "Usuário atualizado com sucesso!" });     
+      
+              },      
 };
 
 

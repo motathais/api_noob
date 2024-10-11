@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const denunciaSchema = new Schema({
 
-    registro: {
+    idRegistro: {
         type: String,
         required: true
     },
