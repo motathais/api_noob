@@ -74,14 +74,14 @@ const loginController = {
             // Envia o token e as informações do usuário como resposta
             return res.status(200).json({
                 token,
-               /* usuario: {
+                usuario: {
                     id: usuario._id,
-                    nome: usuario.nome,
-                    apelido: usuario.apelido,
-                    nascimento: usuario.nascimento,
-                    email: usuario.email,
-                    src: usuario.src
-                },*/
+                    //nome: usuario.nome,
+                    //apelido: usuario.apelido,
+                    //nascimento: usuario.nascimento,
+                    //email: usuario.email,
+                    //src: usuario.src
+                },
                 msg: "Usuário logado com sucesso!"
             });
 
