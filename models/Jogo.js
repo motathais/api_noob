@@ -38,10 +38,12 @@ const jogoSchema = new Schema({
     idOriginal:{
         type: String,
     },
+    foto:{
+        type: String,
+    },
     capa:{
         type: String,
-        //required: true
-    },
+    }
 },
 {timestamps: true} 
 );
