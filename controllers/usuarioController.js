@@ -67,7 +67,7 @@ const usuarioController={
         // salvando o usuário
         await usuarios.save();
   
-        res.status(200).json({ usuarios, message: "Usuário criado com sucesso!" });
+        res.status(201).json({ usuarios, message: "Usuário criado com sucesso!" });
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Erro ao processar a requisição." });
