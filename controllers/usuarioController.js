@@ -73,6 +73,34 @@ const usuarioController={
         res.status(500).json({ message: "Erro ao processar a requisição." });
       }
     },
+     // função para buscar todos os usuários da lista via GET
+        getAll: async (req, res) => {
+            try{
+                const usuarios = await Usuarios.find()
+    
+                res.json(usuarios);
+            }catch(error){
+                console.log(error)
+            }
+        },
+    // função para buscar apenas um usuário passando o ID via GET
+        get: async(req,res) =>{
+            try {
+                //id => URL == GET
+                const id = req.params.id
+                const usuario = await Usuarios.findById(id, '-senha');
+    
+                if(!usuario){
+                    res.status(404).json({msg: "Usuario não encontrado"});
+                    return;
+                }
+    
+                res.json(usuario);
+    
+            }catch(error) {
+                console.log(error)
+            }
+        },
     // função para deletar o usuário passando ID via DELETE
         delete: async(req,res) => {
             try{
