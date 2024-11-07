@@ -8,7 +8,7 @@ const partidaController = {
                 usuarios: req.body.usuarios,
                 jogo: req.body.jogo,
                 explicacao: req.body.explicacao,
-                inicio: req.body.inicio,
+                inicio: req.body.inicio
                 //fim: req.body.fim,
                 //vencedor: req.body.vencedor,
                 //pontuacao: req.body.pontuacao
