@@ -11,14 +11,28 @@ const partidaSchema = new Schema({
     jogo: {
         type: String
     },
+    explicacao:
+    {
+        type: String,
+    },
+    inicio:
+    {
+        type: String,
+    },
+    fim:
+    {
+        type: String,
+    },
     vencedor: [{
         apelido: {
-            type: String
+            type: String,
         }
     }],
-    duracao: {
-        type: String
+    pontuacao:
+    {
+        type: Number,
     }
+  
 }, { timestamps: true });
 
 const Partida = mongoose.model("Partida", partidaSchema)

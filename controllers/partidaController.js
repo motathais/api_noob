@@ -7,8 +7,11 @@ const partidaController = {
             const partida = {
                 usuarios: req.body.usuarios,
                 jogo: req.body.jogo,
-                vencedor: req.body.vencedor,
-                duracao: req.body.duracao
+                explicacao: req.body.explicacao,
+                inicio: req.body.inicio,
+                //fim: req.body.fim,
+                //vencedor: req.body.vencedor,
+                //pontuacao: req.body.pontuacao
             };
             const response = await PartidaModel.create(partida);
 
@@ -69,10 +72,13 @@ const partidaController = {
         const id = req.params.id
 
         const partida = {
-            usuarios: req.body.usuarios,
+            /*usuarios: req.body.usuarios,
             jogo: req.body.jogo,
             vencedor: req.body.vencedor,
-            duracao: req.body.duracao
+            duracao: req.body.duracao*/
+            fim: req.body.fim,
+            vencedor: req.body.vencedor,
+            pontuacao: req.body.pontuacao
         };
 
         const updatedPartida = await PartidaModel.findByIdAndUpdate(id, partida)
