@@ -31,6 +31,10 @@ const partidaSchema = new Schema({
     pontuacao:
     {
         type: Number,
+    },
+    registrador:
+    {
+        type: String,
     }
   
 }, { timestamps: true });
