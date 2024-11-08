@@ -54,7 +54,7 @@ const loginController = {
                 return res.status(400).json({ msg: 'Por favor, preencha as informações para login!' });
             }
 
-            const usuario = await Usuarios.findOne( `@${apelido}` );
+            const usuario = await Usuarios.findOne({apelido});
 
             // Verifica se o usuário existe no banco de dados
             if (!usuario) {
