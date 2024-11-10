@@ -31,7 +31,7 @@ const partidaController = {
             console.log(error)
         }
     },
-    get: async(req,res) =>{
+    //get: async(req,res) =>{
         try {
             //id => URL == GET
             const id = req.params.id
@@ -47,7 +47,31 @@ const partidaController = {
         }catch(error) {
             console.log(error)
         }
-    },
+    },//
+get: async (req, res) => {
+    try {
+        // Receber os parâmetros de consulta (query params)
+        const { registrador, fim } = req.query;
+
+        // Criar um filtro dinâmico
+        let filter = {};
+        if (registrador) filter.registrador = registrador;
+        if (fim !== undefined) filter.fim = fim; // Filtro "fim" pode ser null ou qualquer valor
+
+        // Buscar partidas com base no filtro
+        const partidas = await PartidaModel.find(filter);
+
+        if (partidas.length === 0) {
+            return res.status(404).json({ msg: "Nenhuma partida encontrada com os critérios especificados." });
+        }
+
+        res.json(partidas);
+
+    } catch (error) {
+        console.error("Erro ao buscar partidas:", error);
+        res.status(500).json({ msg: "Erro ao buscar partidas." });
+    }
+},
     delete: async(req,res) => {
         try{
             const id = req.params.id;
