@@ -31,7 +31,7 @@ const partidaController = {
             console.log(error)
         }
     },
-    //get: async(req,res) =>{
+    /*get: async(req,res) =>{
         try {
             //id => URL == GET
             const id = req.params.id
@@ -47,7 +47,7 @@ const partidaController = {
         }catch(error) {
             console.log(error)
         }
-    },//
+    },*/
 get: async (req, res) => {
     try {
         // Receber os parâmetros de consulta (query params)
