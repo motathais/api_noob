@@ -50,14 +50,15 @@ const partidaController = {
     },*/
 get: async (req, res) => {
     try {
-        // Receber os parâmetros de consulta (query params)
         const { registrador, fim } = req.query;
 
         // Criar um filtro dinâmico
         let filter = {};
         if (registrador) filter.registrador = registrador;
-        if (fim === null || fim === 'null') {
-            filter.fim = { $eq: null }; // Verificar explicitamente valores nulos
+        
+        // Verificar se fim é 'null' (string) e aplicar o filtro corretamente
+        if (fim === 'null') {
+            filter.fim = null;
         } else if (fim !== undefined) {
             filter.fim = fim;
         }
@@ -76,6 +77,7 @@ get: async (req, res) => {
         res.status(500).json({ msg: "Erro ao buscar partidas." });
     }
 },
+
 
     delete: async(req,res) => {
         try{
