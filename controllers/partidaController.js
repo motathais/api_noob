@@ -9,8 +9,8 @@ const partidaController = {
                 jogo: req.body.jogo,
                 explicacao: req.body.explicacao,
                 inicio: req.body.inicio,
-                registrador: req.body.registrador
-                fim: null,
+                registrador: req.body.registrador,
+                fim: null
                 //vencedor: req.body.vencedor,
                 //pontuacao: req.body.pontuacao
             };
