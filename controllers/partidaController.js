@@ -56,7 +56,11 @@ get: async (req, res) => {
         // Criar um filtro dinâmico
         let filter = {};
         if (registrador) filter.registrador = registrador;
-        if (fim !== undefined) filter.fim = fim; // Filtro "fim" pode ser null ou qualquer valor
+        if (fim === null || fim === 'null') {
+            filter.fim = { $eq: null }; // Verificar explicitamente valores nulos
+        } else if (fim !== undefined) {
+            filter.fim = fim;
+        }
 
         // Buscar partidas com base no filtro
         const partidas = await PartidaModel.find(filter);
@@ -72,6 +76,7 @@ get: async (req, res) => {
         res.status(500).json({ msg: "Erro ao buscar partidas." });
     }
 },
+
     delete: async(req,res) => {
         try{
             const id = req.params.id;
