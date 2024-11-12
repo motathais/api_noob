@@ -54,13 +54,23 @@ get: async (req, res) => {
 
         // Criar um filtro dinâmico
         let filter = {};
-        if (registrador) filter.registrador = registrador;
-        
-        // Verificar se fim é 'null' (string) e aplicar o filtro corretamente
-        if (fim === 'null') {
-            filter.fim = null;
-        } else if (fim !== undefined) {
-            filter.fim = fim;
+
+        if (registrador) {
+            filter.registrador = registrador;
+        }
+
+        if (fim !== undefined) {
+            if (fim === 'null') {
+                // Filtrar onde 'fim' é null, vazio ou não existe
+                filter.$or = [
+                    { fim: null },
+                    { fim: '' },
+                    { fim: { $exists: false } }
+                ];
+            } else {
+                // Filtrar por um valor específico de 'fim'
+                filter.fim = fim;
+            }
         }
 
         // Buscar partidas com base no filtro
@@ -77,7 +87,6 @@ get: async (req, res) => {
         res.status(500).json({ msg: "Erro ao buscar partidas." });
     }
 },
-
 
     delete: async(req,res) => {
         try{
