@@ -9,39 +9,38 @@ const partidaSchema = new Schema({
         }
     }],
     jogo: {
-        type: String
-    },
-    explicacao:
-    {
         type: String,
     },
-    inicio:
-    {
+    explicacao: {
         type: String,
     },
-    fim:
-    {
-        type: String,
+    inicio: {
+        type: Date, // Tipo Date para armazenar dia e hora
+    },
+    fim: {
+        type: Date, // Tipo Date para armazenar dia e hora
     },
     vencedor: [{
         apelido: {
             type: String,
         }
     }],
-    pontuacao:
-    {
+    pontuacao: {
         type: Number,
     },
-    registrador:
-    {
+    registrador: {
         type: String,
+    },
+    duracao: {
+        type: Number, // Duração em horas como número
     }
-  
-}, { timestamps: true });
+}, { 
+    timestamps: true, 
+});
 
-const Partida = mongoose.model("Partida", partidaSchema)
+const Partida = mongoose.model("Partida", partidaSchema);
 
 module.exports = {
     Partida,
     partidaSchema
-}
+};

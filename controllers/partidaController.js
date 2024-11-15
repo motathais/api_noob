@@ -109,30 +109,46 @@ get: async (req, res) => {
             console.log(error)
         }
     },
-    update : async(req,res) =>{
-        const id = req.params.id
+    update: async (req, res) => {
+        try {
+            const id = req.params.id;
+    
+            // Recupera os dados existentes da partida
+            const partidaExistente = await Partida.findById(id);
+            if (!partidaExistente) {
+                return res.status(404).json({ msg: "Partida não encontrada" });
+            }
+    
+            // Campos a serem atualizados
+            const atualizacoes = {
+                fim: req.body.fim,
+                vencedor: req.body.vencedor,
+                pontuacao: req.body.pontuacao,
+            };
 
-        const partida = {
-            /*usuarios: req.body.usuarios,
-            jogo: req.body.jogo,
-            vencedor: req.body.vencedor,
-            duracao: req.body.duracao*/
-            fim: req.body.fim,
-            vencedor: req.body.vencedor,
-            pontuacao: req.body.pontuacao
-        };
-
-        const updatedPartida = await PartidaModel.findByIdAndUpdate(id, partida)
-
-        if(!updatedPartida) {
-            res.status(404).json({msg: "Partida não encontrada!"});
-            return;
+            if (req.body.fim && new Date(req.body.fim) <= new Date(partidaExistente.inicio)) {
+                return res.status(400).json({ msg: "A data de fim deve ser posterior à data de início." });
+            }
+            
+    
+            // Calcula a duração se o campo 'fim' for enviado no corpo da requisição
+            if (req.body.fim && partidaExistente.inicio) {
+                const inicio = new Date(partidaExistente.inicio);
+                const fim = new Date(req.body.fim);
+                const duracaoHoras = Math.abs((fim - inicio) / (1000 * 60 * 60)); // Diferença em horas
+                atualizacoes.duracao = duracaoHoras;
+            }
+    
+            // Atualiza o documento no banco de dados
+            const partidaAtualizada = await Partida.findByIdAndUpdate(id, atualizacoes, { new: true });
+    
+            res.status(200).json({ partidaAtualizada, msg: "Partida atualizada com sucesso!" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ msg: "Erro ao atualizar a partida" });
         }
-
-        res.status(200).json({partida, msg: "Partida atualizada com sucesso!"}); 
-
-        },
-
+    },
+    
     };
 
 
