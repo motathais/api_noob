@@ -34,8 +34,8 @@ const partidaSchema = new Schema({
     duracao: {
         type: Number, // Duração em horas como número
     }
-}, { 
-    timestamps: true, 
+}, {
+    timestamps: true,
 });
 
 const Partida = mongoose.model("Partida", partidaSchema);

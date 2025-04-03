@@ -12,9 +12,9 @@ const denunciaSchema = new Schema({
         type: String,
         required: true
     },
-   
+
 },
-{timestamps: true} 
+    { timestamps: true }
 );
 
 const Denuncia = mongoose.model("Denuncia", denunciaSchema)

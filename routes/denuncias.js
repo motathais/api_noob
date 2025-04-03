@@ -2,13 +2,13 @@ const router = require("express").Router()
 
 const denunciaController = require("../controllers/denunciaController");
 
-const {checkToken} = require("../checkToken/checkToken");
+const { checkToken } = require("../checkToken/checkToken");
 
 // Funções
 
-router.route("/denuncias").post(checkToken, (req, res) => denunciaController.create(req, res)); 
+router.route("/denuncias").post(checkToken, (req, res) => denunciaController.create(req, res));
 
-router.route("/denuncias").get(checkToken, (req, res) => denunciaController.getAll(req, res)); 
+router.route("/denuncias").get(checkToken, (req, res) => denunciaController.getAll(req, res));
 
 router.route("/denuncias/:id").get(checkToken, (req, res) => denunciaController.get(req, res));
 

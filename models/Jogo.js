@@ -35,17 +35,17 @@ const jogoSchema = new Schema({
     descricao: {
         type: String,
     },
-    idOriginal:{
+    idOriginal: {
         type: String,
     },
-    foto:{
+    foto: {
         type: String,
     },
-    capa:{
+    capa: {
         type: String,
     }
 },
-{timestamps: true} 
+    { timestamps: true }
 );
 
 const Jogo = mongoose.model("Jogo", jogoSchema)

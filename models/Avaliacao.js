@@ -29,7 +29,7 @@ const avaliacaoSchema = new Schema({
         type: Number,
     },
 },
-{timestamps: true} 
+    { timestamps: true }
 );
 
 const Avaliacao = mongoose.model("Avaliacao", avaliacaoSchema)

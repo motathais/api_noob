@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UsuarioSchema = new Schema({
-    
+
     nome: {
         type: String,
         required: true
@@ -23,17 +23,17 @@ const UsuarioSchema = new Schema({
         type: String,
         required: true
     },
-    nivel:{
+    nivel: {
         type: Number,
     },
-    foto:{
+    foto: {
         type: String,
     },
-    capa:{
+    capa: {
         type: String,
     }
 },
-{timestamps: true}
+    { timestamps: true }
 );
 
 module.exports = mongoose.model("Usuario", UsuarioSchema);
